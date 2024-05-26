@@ -22,6 +22,7 @@ async function sleep(ms) {
 // 點下抽獎卡片中的參加按鈕, follow user, 並且點擊參加按鈕
 async function joinLuckyDraw(luckyDrawBtn) {
   luckyDrawBtn.click()
+  await sleep(2000)
   
   let joinDrawModal = document.querySelector(joinDrawModalSelector)
   if (!joinDrawModal) {
@@ -32,14 +33,14 @@ async function joinLuckyDraw(luckyDrawBtn) {
   let followBtn = joinDrawModal.querySelector(followBtnSelector)
   if (followBtn) {
     followBtn.click()
-    await sleep(3000)
+    await sleep(2000)
   }
   
   let submitBtn = joinDrawModal.querySelector(submitLuckyDrawBtnSelector)
   if (submitBtn) {
     submitBtn.click()
     successCounter++
-    await sleep(3000)
+    await sleep(2000)
   } else {
     console.error('找不到參加按鈕')
   }
@@ -57,6 +58,7 @@ async function startDrawing() {
   console.log('開始尋找抽獎目標')
   let luckyDrawBtn = document.querySelector(joinDrawBtnSelector)
   if (luckyDrawBtn) {
+    await sleep(2000)
     await joinLuckyDraw(luckyDrawBtn)
     console.log('完成抽獎, 成功次數:', successCounter)
   } else {
