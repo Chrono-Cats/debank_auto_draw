@@ -5,6 +5,8 @@ let followBtnSelector = 'button.FollowButton_followBtn__I1dri'
 let submitLuckyDrawBtnSelector = 'button.JoinDrawModal_submitBtn__lP87P'
 let closeModalBtnSelector = 'img.CommonModal_closeModalButton__xaheM'
 let successCounter = 0
+let stepDelay = 3000
+let drawDelay = 15000
 
 function scrollToNextPage() {
   window.scrollBy({
@@ -22,24 +24,24 @@ async function sleep(ms) {
 // 點下抽獎卡片中的參加按鈕, follow user, 並且點擊參加按鈕
 async function joinLuckyDraw(luckyDrawBtn) {
   luckyDrawBtn.click()
-  
+
   let joinDrawModal = document.querySelector(joinDrawModalSelector)
   if (!joinDrawModal) {
     console.error('找不到參加抽獎的視窗')
     return
   }
-  
+
   let followBtn = joinDrawModal.querySelector(followBtnSelector)
   if (followBtn) {
     followBtn.click()
-    await sleep(3000)
+    await sleep(stepDelay)
   }
-  
+
   let submitBtn = joinDrawModal.querySelector(submitLuckyDrawBtnSelector)
   if (submitBtn) {
     submitBtn.click()
     successCounter++
-    await sleep(3000)
+    await sleep(stepDelay)
   } else {
     console.error('找不到參加按鈕')
   }
@@ -47,7 +49,7 @@ async function joinLuckyDraw(luckyDrawBtn) {
   let closeModalBtn = joinDrawModal.querySelector(closeModalBtnSelector)
   if (closeModalBtn) {
     closeModalBtn.click()
-    await sleep(2000)
+    await sleep(stepDelay)
   } else {
     console.error('無法關閉抽獎視窗')
   }
@@ -71,7 +73,7 @@ function stopDrawing() {
 }
 
 function main() {
-  timeIntervalMission = setInterval(startDrawing, 10000)
+  timeIntervalMission = setInterval(startDrawing, drawDelay)
 }
 
 main()
